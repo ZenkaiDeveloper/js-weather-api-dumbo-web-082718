@@ -40,7 +40,7 @@ function makeRequest(endpoint, canvas) {
    return obj;
   })
   .then(function(objInfo){
-    const tempChart = new Chart(canvas, generateDataSet(Object.keys(objInfo), Object.values(objInfo)));
+    return new Chart(canvas, generateDataSet(Object.keys(objInfo), Object.values(objInfo)));
   })
 
   // After your fetch works - use your json data with the line below :)

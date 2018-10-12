@@ -6,6 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // make your fetch in the makeRequest function in weatherChart.js
   makeRequest(URL, ctx)
-
+  console.log(URL)
 
 });
