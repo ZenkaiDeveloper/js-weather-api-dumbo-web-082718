@@ -2,8 +2,9 @@ function getFahrenheit(result){
   // Your code goes here
 }
 
-function getHour(result){
-  // Your code goes here
+function getHour(UnixTime){
+  const date = new Date(UnixTime*1000);
+  return date.getHours();
 }
 
 function generateDataSet(labels, data) {
@@ -27,8 +28,47 @@ function generateDataSet(labels, data) {
 }
 
 function makeRequest(endpoint, canvas) {
-  // Your code goes here
+  fetch(endpoint)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    let obj = {};
+    myJson.hourly.data.forEach((hourlyData1)=>{
+     obj[getHour(hourlyData1.time)] = hourlyData1.temperature;
+   })
+   return obj;
+  })
+  .then(function(objInfo){
+    const tempChart = new Chart(canvas, generateDataSet(Object.keys(objInfo), Object.values(objInfo)));
+  })
 
   // After your fetch works - use your json data with the line below :)
-  // const tempChart = new Chart(canvas, generateDataSet(getHour(hourlyData), getFahrenheit(hourlyData)))
+
+
+//   var chart = new Chart(canvas, {
+//     // The type of chart we want to create
+//     type: 'line',
+//
+//     // The data for our dataset
+//     data: {
+//         labels: Object.keys(getData()),
+//         datasets: [{
+//             label: "My First dataset",
+//             data: Object.values(getData()),
+//         }]
+//     },
+//
+//     // Configuration options go here
+//     options: {}
+// });
+// }
 }
+
+// const getData = ()=>{
+//   dataObj.hourly.data.forEach((hourlyData1)=>{
+//    obj[getHour(hourlyData1.time)] = hourlyData1.temperature;
+//  });
+//  return obj;
+// };
+// getData();
